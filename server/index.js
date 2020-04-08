@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
-const port = 3000;
 var app = express();
+
+var port = process.env.MOVIE_INFO_PORT;
 
 app.get('/',(req, res) => {
   res.send("Hello Movie-Info World");
