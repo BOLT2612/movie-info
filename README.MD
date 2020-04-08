@@ -1,3 +1,10 @@
+# Getting Movie-Info running locally
+## Install the node modules
+This setup assumes you already have node.js and npm installed on your system.  If not you can find instructions for installation at `nodejs.org` and `npmjs.com`.
+
+In the root directory of the project, enter the following:
+`npm install`
+
 
 ## Before running server,
 ### ...set the environment variable MOVIE_INFO_PORT to your desired port number.
