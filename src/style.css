@@ -1,0 +1,36 @@
+#signalBox {
+  height: 300px;
+  width: 100px;
+  background-color: black;
+  padding: 10px;
+}
+
+.circle {
+  height: 95px;
+  width: 95px;
+  margin: 5px 5px 5px 5px;
+  border-radius: 50%;
+
+  opacity: 25%;
+  display: block;
+}
+
+#redSignal {
+  background-color: red;
+  border-color: black;
+}
+
+#yellowSignal {
+  background-color: yellow;
+}
+
+#greenSignal {
+  background-color: #6aff1a;
+}
+
+.on {
+  opacity: 100%;
+}
+
+
+
