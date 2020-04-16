@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@reach/router';
 
 const NavHeader = () => {
 
@@ -7,8 +7,8 @@ const NavHeader = () => {
     <div>
       <nav>
         <Link to="/">Home</Link> |{' '}
-        <Link to="about">About</Link> |{' '}
-        <Link to="details">Details</Link>
+        <Link to="/about">About</Link> |{' '}
+        <Link to="/details">Details</Link>
       </nav>
     </div>
   );

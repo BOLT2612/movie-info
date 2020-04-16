@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 
 class MovieListItem extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class MovieListItem extends React.Component {
   movieListItemClick = () => {
     console.log(this.movieId);
     this.props.onMovieDetailClick(this.movieId);
+    navigate(`/details/${this.movieId}`);
   }
 
   render () {
