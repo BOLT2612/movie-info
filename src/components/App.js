@@ -15,7 +15,12 @@ class App extends React.Component {
   state = { 
     movies: [ ],
     movieDetail: {},
-    axiosConfig: {
+    
+  };
+
+  componentDidMount = () => {
+    console.log('mounting app component');
+    const landingPageConfig = {
       method: 'get',
       url: '/moviepopular',
       params: {
@@ -23,11 +28,7 @@ class App extends React.Component {
         applicationOrigin: "initial page loading"
       }
     }
-  };
-
-  componentDidMount = () => {
-    console.log('mounting app component');
-    axios(this.state.axiosConfig).then(response => {
+    axios(landingPageConfig).then(response => {
       console.log(response);
       this.setState({movies: response.data})
     }).catch(err => console.error(err));
@@ -35,42 +36,41 @@ class App extends React.Component {
 
   onMovieSearchSubmit = (term) => {
     console.log('onMovieSearchSubmit: term =', term);
-    this.setState({
-      axiosConfig: {
-        method: 'get',
-        url: '/moviesearch/',
-        params: {
-          page: 1, 
-          searchTerm: term,
-          applicationOrigin: "onMovieSearchSubmit"
-        }
+    const searchConfig = {
+      method: 'get',
+      url: '/moviesearch/',
+      params: {
+        page: 1, 
+        searchTerm: term,
+        applicationOrigin: "onMovieSearchSubmit"
       }
-    }, () => {
-      axios(this.state.axiosConfig).then(response => {
-        console.log(response);
-        this.setState({movies: response.data})
-      }).catch(err => console.error(err));
-    })
+    }
+    axios(searchConfig).then(response => {
+      console.log(response);
+      this.setState({
+        movies: response.data,
+        axiosConfig: searchConfig
+      })
+    }).catch(err => console.error(err));
   }
 
   onMovieDetailClick = (incomingMovieId) => {
     console.log(event.target, event.target.idx);
-    this.setState({
-      axiosConfig: {
-        method: 'get',
-        url: '/moviedetail/',
-        params: {
-          applicationOrigin: "onMovieDetailClick",
-          movieId: incomingMovieId
-        }
+    const movieDetailConfig = {
+      method: 'get',
+      url: '/moviedetail/',
+      params: {
+        applicationOrigin: "onMovieDetailClick",
+        movieId: incomingMovieId
       }
-    }, () => {
-
-      axios(this.state.axiosConfig).then(response => {
-        console.log(response.data);
-        this.setState({ movieDetail: response.data });
-      }).catch(err => console.error(err));
-    })
+    };
+    axios(movieDetailConfig).then(response => {
+      console.log(response.data);
+      this.setState({ 
+        movieDetail: response.data,
+        axiosConfig: movieDetailConfig
+      });
+    }).catch(err => console.error(err));
   }
 
   render() {
