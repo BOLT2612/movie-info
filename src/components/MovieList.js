@@ -3,7 +3,7 @@ import MovieListItem from './MovieListItem';
 import PaginationFooter from './PaginationFooter';
 
 const MovieList = (props) => {
-  console.log("MovieList: props.movies.page", props.movies.page, "props.movies.total_pages",props.movies.total_pages)
+  // console.log("MovieList: props.movies.page", props.movies.page, "props.movies.total_pages",props.movies.total_pages)
   if (props.movies.results) {
 
     let searchResultsHeading = '';

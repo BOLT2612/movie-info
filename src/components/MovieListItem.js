@@ -10,7 +10,7 @@ class MovieListItem extends React.Component {
   }
 
   movieListItemClick = () => {
-    console.log(this.movieId);
+    // console.log(this.movieId);
     this.props.onMovieDetailClick(this.movieId);
     navigate(`/details/${this.movieId}`);
   }

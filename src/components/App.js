@@ -10,7 +10,7 @@ import MovieDetails from "./MovieDetails";
 import AboutThisApp from "./AboutThisApp";
 
 const port = process.env.MOVIE_INFO_PORT || 3456;
-const sitename = `Greg's Movie Info Site`;
+const sitename = `Greg's Movie Info`;
 
 class App extends React.Component {
   state = { 
@@ -38,7 +38,7 @@ class App extends React.Component {
       }
     }
     axios(landingPageConfig).then(response => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         movies: response.data,
         searchTerm: '',
@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 
   onMovieSearchSubmit = (term, page = 1) => {
-    console.log('onMovieSearchSubmit: term =', term);
+    // console.log('onMovieSearchSubmit: term =', term);
     const searchConfig = {
       method: 'get',
       url: '/moviesearch/',
@@ -60,7 +60,7 @@ class App extends React.Component {
       }
     }
     axios(searchConfig).then(response => {
-      console.log(response);
+      // console.log(response);
       this.setState({
         movies: response.data,
         searchTerm: term,
@@ -73,7 +73,7 @@ class App extends React.Component {
     this.setState({
       movieDetail: {}
     }) 
-    console.log(event.target, event.target.idx);
+    // console.log(event.target, event.target.idx);
     const movieDetailConfig = {
       method: 'get',
       url: '/moviedetail/',
@@ -92,36 +92,31 @@ class App extends React.Component {
   }
 
   chooseAnotherPage = (e) => {
-    console.log("Pagination click:",e.target.textContent);
+    // console.log("Pagination click:",e.target.textContent);
     // textContent holds the number value clicked on
     let newPage;
     if (e.target.textContent.search(/[\D]/) === -1) {
       // check that pagination click was on a number
       newPage = Number.parseInt(e.target.textContent);
     } else if (e.target.textContent.charCodeAt(0) === 171) {
-      console.log('found a charCodeAt(0) = 171, «');
       newPage = 1;
     } else if (e.target.textContent.charCodeAt(0) === 187) {
-      console.log('found a charCodeAt(0) = 187, »');
       newPage = this.state.movies.total_pages;
     } else if (e.target.textContent.charCodeAt(0) === 10216) {
-      console.log('increment current page down 1, ⟨');
       newPage = Math.max(this.state.currentPage - 1, 1);
     } else if (e.target.textContent.charCodeAt(0) === 10217) {
-      console.log('increment current page up 1, ⟩');
       newPage = Math.min(this.state.currentPage + 1,this.state.movies.total_pages);
     } else if (e.target.textContent === '...') {
-      console.log('ellipsis "...", do nothing' );
       return;
     }
-    
-    console.log("newPage =", newPage);
+
+    // console.log("newPage =", newPage);
 
     if (this.state.searchTerm) {
-      console.log("Movie Search Query:", this.state.searchTerm, "page =",newPage);
+      // console.log("Movie Search Query:", this.state.searchTerm, "page =",newPage);
       this.onMovieSearchSubmit(this.state.searchTerm, newPage);
     } else {
-      console.log("Popular Movie Query:", this.state.searchTerm, "page =",newPage);
+      // console.log("Popular Movie Query:", this.state.searchTerm, "page =",newPage);
       this.popularMovieSearch(newPage);
     }
     

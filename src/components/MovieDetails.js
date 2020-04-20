@@ -3,7 +3,7 @@ import { navigate } from '@reach/router';
 
 const MovieDetails = (props) => {
   const detailData = props.detailData
-  console.log("detailData >>>>>>>>>>", detailData);
+  // console.log("detailData >>>>>>>>>>", detailData);
 
   let tagline = '';
   if (detailData.tagline && detailData.tagline.length > 0) {
