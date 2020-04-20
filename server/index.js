@@ -7,8 +7,11 @@ const app = express();
 
 app.use(express.static(path.join(__dirname,'../dist')));
 
-var port = process.env.MOVIE_INFO_PORT || 3456;
-var TMDB_API_KEY = process.env.TMDB_API_KEY;
+const port = process.env.PORT || 3456;
+
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const DEBUG = process.env.PORT ? false : true ;
+
 if (!TMDB_API_KEY) console.log('TMDB_API_KEY =', TMDB_API_KEY)
 
 app.get('/',(req, res) => {
@@ -16,8 +19,11 @@ app.get('/',(req, res) => {
 });
 
 app.get('/moviepopular', (req, res) => {
-  console.log('** hit moviepopular **');
-  console.log('req.query', req.query);
+  if (DEBUG) {
+    console.log('** hit moviepopular **');
+    console.log('req.query', req.query);
+  }
+  
   axios.get('https://api.themoviedb.org/3/movie/popular', {
     params: {
       api_key: TMDB_API_KEY,
@@ -34,17 +40,22 @@ app.get('/moviepopular', (req, res) => {
       total_results: response.data.total_results,
       results: condensedArray
     }
-    console.log(retObj);
-    // res.send(response.data);
+    if (DEBUG) { 
+      console.log(retObj);
+      // res.send(response.data);
+    }
+
     res.send(retObj);
   })
   .catch(err => console.error(err));
 })
 
 app.get('/moviesearch', (req, res) => {
-  console.log('** Movie Search HIT **');
-  console.log('searchTerm:', req.query.searchTerm, 'page:', req.query.page);
-  
+  if (DEBUG) { 
+    console.log('** Movie Search HIT **');
+    console.log('searchTerm:', req.query.searchTerm, 'page:', req.query.page);
+  }
+
   axios.get('https://api.themoviedb.org/3/search/movie', {
     params: {
       api_key: TMDB_API_KEY,
@@ -62,8 +73,10 @@ app.get('/moviesearch', (req, res) => {
       total_results: response.data.total_results,
       results: condensedArray
     }
-    console.log(retObj);
-    // res.send(response.data);
+    if (DEBUG) { 
+      console.log(retObj);
+      // res.send(response.data);
+    }
     res.send(retObj);
   })
   .catch(err => console.error(err));
@@ -72,8 +85,10 @@ app.get('/moviesearch', (req, res) => {
 })
 
 app.get('/moviedetail',(req, res) => {
-  console.log('** Movie Detail Hit **');
-  console.log(req.query);
+  if (DEBUG) { 
+    console.log('** Movie Detail Hit **');
+    console.log(req.query);
+  }
 
   axios.all([
     axios.get(`https://api.themoviedb.org/3/movie/${req.query.movieId}`, {
@@ -89,8 +104,10 @@ app.get('/moviedetail',(req, res) => {
     }
   })
   ]).then(axios.spread((response1,response2) => {
-    console.log(' ************** response1 ************** ',response1.status, response1.data);
-    console.log(' ************** response2 ************** ',response2.status, response2.data);
+    if (DEBUG) { 
+      console.log(' ************** response1 ************** ',response1.status, response1.data);
+      console.log(' ************** response2 ************** ',response2.status, response2.data);
+    }
     const movieDetailData = response1.data;
     movieDetailData.cast = response2.data.cast;
     movieDetailData.crew = response2.data.crew;
@@ -99,15 +116,7 @@ app.get('/moviedetail',(req, res) => {
     
   }))
   .catch(err => console.error(err));
-  // res.status(200);
-
-
-  // res.send("** Movie Detail Response **");
 })
-
-// /search/movie
-// /movie/popular
-// /movie/{movie_id}
 
 app.get('/test',(req, res) => {
   console.log('** test hit **');
@@ -123,7 +132,6 @@ app.get('/test',(req, res) => {
   }
 
   console.log(testResponse);
-
   // console.log(req.protocol)     // "https"
   // console.log(req.hostname)     // "localhost"
   // console.log(req.path)         // "/moviepopular"
@@ -131,11 +139,8 @@ app.get('/test',(req, res) => {
   // console.log(req.subomains)    // "['mossy']"
   // console.log(req.method)    // "GET"
   // console.log(req.Content-Type)
-
   res.send(testResponse);
 })
-
-
 
 app.listen(port, () => {
   time = new Date().toLocaleTimeString()
