@@ -5,12 +5,11 @@ const WebsiteHeading = (props) => {
 
   return (
     <div class="ui inverted segment">
-      <h3 class="ui teal inverted center aligned header">
+      <h2 class="ui teal inverted center aligned header">
         {sitename}
-      </h3>
+      </h2>
     </div>
   );
-  
 };
 
 export default WebsiteHeading;

@@ -10,37 +10,51 @@ import MovieDetails from "./MovieDetails";
 import AboutThisApp from "./AboutThisApp";
 
 const port = process.env.MOVIE_INFO_PORT || 3456;
+const sitename = `Greg's Movie Info Site`;
 
 class App extends React.Component {
   state = { 
-    movies: [ ],
+    movies: { },
+    movieId: '',
+    currentPage: 0,
     movieDetail: {},
-    
+    searchTerm: '',
   };
 
   componentDidMount = () => {
     console.log('mounting app component');
+    this.popularMovieSearch();
+  }
+
+  popularMovieSearch = (page = 1) => {
+
     const landingPageConfig = {
       method: 'get',
       url: '/moviepopular',
       params: {
-        page: 1,
-        applicationOrigin: "initial page loading"
+        page: page,
+        applicationOrigin: "initial page loading",
+        searchTerm: '',
       }
     }
     axios(landingPageConfig).then(response => {
       console.log(response);
-      this.setState({movies: response.data})
+      this.setState({
+        movies: response.data,
+        searchTerm: '',
+        currentPage: page,
+        searchTerm: '',
+      })
     }).catch(err => console.error(err));
   }
 
-  onMovieSearchSubmit = (term) => {
+  onMovieSearchSubmit = (term, page = 1) => {
     console.log('onMovieSearchSubmit: term =', term);
     const searchConfig = {
       method: 'get',
       url: '/moviesearch/',
       params: {
-        page: 1, 
+        page: page, 
         searchTerm: term,
         applicationOrigin: "onMovieSearchSubmit"
       }
@@ -49,12 +63,16 @@ class App extends React.Component {
       console.log(response);
       this.setState({
         movies: response.data,
-        axiosConfig: searchConfig
+        searchTerm: term,
+        currentPage: page,
       })
     }).catch(err => console.error(err));
   }
 
   onMovieDetailClick = (incomingMovieId) => {
+    this.setState({
+      movieDetail: {}
+    }) 
     console.log(event.target, event.target.idx);
     const movieDetailConfig = {
       method: 'get',
@@ -65,24 +83,67 @@ class App extends React.Component {
       }
     };
     axios(movieDetailConfig).then(response => {
-      console.log(response.data);
+      // console.log("Inside the axios promise...", response.data);
       this.setState({ 
         movieDetail: response.data,
-        axiosConfig: movieDetailConfig
+        movieId: '',
       });
     }).catch(err => console.error(err));
+  }
+
+  chooseAnotherPage = (e) => {
+    console.log("Pagination click:",e.target.textContent);
+    // textContent holds the number value clicked on
+    let newPage;
+    if (e.target.textContent.search(/[\D]/) === -1) {
+      // check that pagination click was on a number
+      newPage = Number.parseInt(e.target.textContent);
+    } else if (e.target.textContent.charCodeAt(0) === 171) {
+      console.log('found a charCodeAt(0) = 171, «');
+      newPage = 1;
+    } else if (e.target.textContent.charCodeAt(0) === 187) {
+      console.log('found a charCodeAt(0) = 187, »');
+      newPage = this.state.movies.total_pages;
+    } else if (e.target.textContent.charCodeAt(0) === 10216) {
+      console.log('increment current page down 1, ⟨');
+      newPage = Math.max(this.state.currentPage - 1, 1);
+    } else if (e.target.textContent.charCodeAt(0) === 10217) {
+      console.log('increment current page up 1, ⟩');
+      newPage = Math.min(this.state.currentPage + 1,this.state.movies.total_pages);
+    } else if (e.target.textContent === '...') {
+      console.log('ellipsis "...", do nothing' );
+      return;
+    }
+    
+    console.log("newPage =", newPage);
+
+    if (this.state.searchTerm) {
+      console.log("Movie Search Query:", this.state.searchTerm, "page =",newPage);
+      this.onMovieSearchSubmit(this.state.searchTerm, newPage);
+    } else {
+      console.log("Popular Movie Query:", this.state.searchTerm, "page =",newPage);
+      this.popularMovieSearch(newPage);
+    }
+    
+
   }
 
   render() {
     return (
       <div className="ui container" style={{ marginTop: '10px'}}>
-        <WebsiteHeading sitename={`Movie Info`} />
+        <WebsiteHeading sitename={sitename} />
         <NavHeader />
-        <SearchBar onSubmit={this.onMovieSearchSubmit} />
+        <SearchBar onSubmit={this.onMovieSearchSubmit} popularSearch={this.popularMovieSearch} />
           <Router>
-            <MovieList  path="/" onMovieDetailClick={this.onMovieDetailClick} movies={this.state.movies} />
-            <MovieDetails path="details/:movieId"  moviename={"Rocky 4"} />
-            <AboutThisApp path="about" />
+            <MovieList  
+              path="/" 
+              onMovieDetailClick={this.onMovieDetailClick} 
+              movies={this.state.movies} 
+              listTerm={this.state.searchTerm}
+              chooseAnotherPage={this.chooseAnotherPage}
+            />
+            <MovieDetails path="details/:movieId"  detailData={this.state.movieDetail} />
+            <AboutThisApp path="about" sitename={sitename} />
           </Router>
       </div>
     );

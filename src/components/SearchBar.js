@@ -1,4 +1,6 @@
 import React from 'react';
+import { navigate } from '@reach/router';
+
 
 class SearchBar extends React.Component {
   state = { term: '' }
@@ -6,7 +8,13 @@ class SearchBar extends React.Component {
   onFormSubmit = (event) => {
     event.preventDefault();
     console.log(event.target.value);
-    this.props.onSubmit(this.state.term);
+    if (this.state.term) {
+      this.props.onSubmit(this.state.term);
+    } else {
+      this.props.popularSearch();
+    }
+    this.setState({ term: '' });
+    navigate(`/`);
   }
 
   render () {
@@ -15,9 +23,14 @@ class SearchBar extends React.Component {
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
             <label>Movie Search</label>
-            <input type="text" value={this.state.term} onChange={(e) => this.setState({ term: e.target.value })} />
+            <input 
+              type="text" 
+              value={this.state.term} 
+              onChange={(e) => this.setState({ term: e.target.value })} 
+              placeholder="Enter a movie title...or a word to find in movie titles."
+              
+            />
           </div>
-          
         </form>
       </div>
     ) 

@@ -22,7 +22,7 @@ app.get('/moviepopular', (req, res) => {
     params: {
       api_key: TMDB_API_KEY,
       language: "en-US",
-      page: "2"
+      page: req.query.page
     }
   }).then(response => {
     // console.log(response.status, response.data);
@@ -43,13 +43,13 @@ app.get('/moviepopular', (req, res) => {
 
 app.get('/moviesearch', (req, res) => {
   console.log('** Movie Search HIT **');
-  console.log('searchTerm:', req.query.searchTerm);
+  console.log('searchTerm:', req.query.searchTerm, 'page:', req.query.page);
   
   axios.get('https://api.themoviedb.org/3/search/movie', {
     params: {
       api_key: TMDB_API_KEY,
       language: "en-US",
-      page: "1",
+      page: req.query.page,
       query: req.query.searchTerm
     }
   }).then(response => {
@@ -91,7 +91,12 @@ app.get('/moviedetail',(req, res) => {
   ]).then(axios.spread((response1,response2) => {
     console.log(' ************** response1 ************** ',response1.status, response1.data);
     console.log(' ************** response2 ************** ',response2.status, response2.data);
-    res.send('** Movie Detail Hit **');
+    const movieDetailData = response1.data;
+    movieDetailData.cast = response2.data.cast;
+    movieDetailData.crew = response2.data.crew;
+    res.send(movieDetailData);
+    // res.send('** Movie Detail Hit **');
+    
   }))
   .catch(err => console.error(err));
   // res.status(200);
