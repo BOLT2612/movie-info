@@ -28,7 +28,7 @@ const MovieList = (props) => {
           <div class="ui list" >{visibleMovieList}</div>
           <h5 class="ui center aligned header">Page {props.movies.page} of {props.movies.total_pages}</h5>
         </div>
-        <div style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+        <div class="ui segment">
           <PaginationFooter 
             currentPage={props.movies.page} 
             totalPages={props.movies.total_pages} 
