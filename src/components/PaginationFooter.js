@@ -14,12 +14,3 @@ const PaginationFooter = (props) => {
 }
 
 export default PaginationFooter;
-
-
-      // <Pagination
-      //   onClick={props.chooseAnotherPage}
-      //   defaultActivePage={1}
-      //   siblingRange={3}
-      //   activePage={props.currentPage}
-      //   totalPages={props.totalPages}
-      // />
