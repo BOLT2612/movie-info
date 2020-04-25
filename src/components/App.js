@@ -49,6 +49,9 @@ class App extends React.Component {
 
   onMovieSearchSubmit = (term, page = 1) => {
     // console.log('onMovieSearchSubmit: term =', term);
+    this.setState({
+      movies: '',
+    });
     const searchConfig = {
       method: 'get',
       url: '/moviesearch/',
