@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, navigate } from '@reach/router';
+import { Router } from '@reach/router';
 import axios from 'axios';
 import NavHeader from "./NavHeader";
 import SearchBar from "./SearchBar";
@@ -9,7 +9,6 @@ import WebsiteHeading from "./WebsiteHeading";
 import MovieDetails from "./MovieDetails";
 import AboutThisApp from "./AboutThisApp";
 
-const port = process.env.MOVIE_INFO_PORT || 3456;
 const sitename = `Greg's Movie Info`;
 
 class App extends React.Component {
@@ -119,8 +118,6 @@ class App extends React.Component {
       // console.log("Popular Movie Query:", this.state.searchTerm, "page =",newPage);
       this.popularMovieSearch(newPage);
     }
-    
-
   }
 
   render() {
