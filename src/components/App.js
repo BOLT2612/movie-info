@@ -137,7 +137,7 @@ class App extends React.Component {
               listTerm={this.state.searchTerm}
               chooseAnotherPage={this.chooseAnotherPage}
             />
-            <MovieDetails path="details/:movieId"  detailData={this.state.movieDetail} />
+            <MovieDetails path="details/:movieId" detailData={this.state.movieDetail} />
             <AboutThisApp path="about" sitename={sitename} />
           </Router>
       </div>

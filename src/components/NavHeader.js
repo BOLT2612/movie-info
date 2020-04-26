@@ -6,7 +6,7 @@ const NavHeader = () => {
     <nav>
       <Link to="/">Home</Link> |{' '}
       <Link to="/about">About</Link> |{' '}
-      <Link to="/details/:movieId">Details</Link>
+      <Link to="details/:movieId">Details</Link>
     </nav>
   );
 };
