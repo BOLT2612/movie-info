@@ -23,7 +23,7 @@ const MovieList = (props) => {
     )
 
     return (
-      <div>        
+      <div>
         <SearchBar onSubmit={props.onMovieSearchSubmit} popularSearch={props.popularMovieSearch} />
         <div class="ui segment">
           <h2 class="ui center aligned header">{searchResultsHeading}</h2>

@@ -18,6 +18,7 @@ class App extends React.Component {
     currentPage: 0,
     movieDetail: {},
     searchTerm: '',
+    leftPartOfimgUrl: '',
     imgUrlPieces: {}
   };
 
