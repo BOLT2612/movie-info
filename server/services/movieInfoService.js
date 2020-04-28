@@ -14,7 +14,7 @@ const popular = async (page) => {
         page: page
       }
     });
-    console.log(dataPopular.data);
+    // if (DEBUG) console.log(dataPopular.data);
     const condensedArray = dataPopular.data.results.map(x => ( 
       {
         title: x.title, 
@@ -29,7 +29,7 @@ const popular = async (page) => {
       total_results: dataPopular.data.total_results,
       results: condensedArray
     }
-    if (DEBUG) console.log(retObj);
+    // if (DEBUG) console.log(retObj);
     return retObj;
   } catch (err) {
     console.error(err);
@@ -103,8 +103,34 @@ const movieDetail = async (movieId) => {
   }
 }
 
+const imagesConfiguration = async () => {
+  try {
+    const imagesConfigRes = await axios.get(
+      'https://api.themoviedb.org/3/configuration', 
+      {
+        params: {
+          api_key: TMDB_API_KEY,
+        }
+      }
+    );      
+    const retObj = imagesConfigRes;
+    if (DEBUG) {
+      console.log("status:",imagesConfigRes.status );
+      console.log("data:", imagesConfigRes.data)
+    }
+    return(retObj.data);
+  } catch {
+    err => {
+      console.log("movieInfoService.js: imagesConfiguration ");
+      console.error(err);
+      return { };
+    }
+  }
+}
+
 module.exports = {
   popular,
   movieSearch,
-  movieDetail
+  movieDetail,
+  imagesConfiguration
 };

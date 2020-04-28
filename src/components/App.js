@@ -18,11 +18,39 @@ class App extends React.Component {
     currentPage: 0,
     movieDetail: {},
     searchTerm: '',
+    imgUrlPieces: {}
   };
 
   componentDidMount = () => {
     console.log('mounting app component');
     this.popularMovieSearch();
+    this.getImagesConfig();
+    // setInterval(this.getImagesConfig, 10000);
+    setInterval(this.getImagesConfig, 24*60*60000);
+  }
+
+  getImagesConfig = () => {
+
+    const imagesConfig = {
+      method: 'get',
+      url: '/imagesconfig',
+      params: {
+        applicationOrigin: "initial page loading",
+      }
+    }
+    axios(imagesConfig).then(response => {
+      console.log("^^^^^^^^^^^^^^  getImagesConfig() response  ^^^^^^^^^^^^^^^^^");
+      console.log(response.data.images);
+      console.log(response.data.images.secure_base_url + response.data.images.poster_sizes[3])
+      this.setState({
+        leftPartOfimgUrl: response.data.images.secure_base_url + response.data.images.poster_sizes[3],
+        imgUrlPieces: {
+          imagesUrl: response.data.images.secure_base_url,
+          backdropSizes: response.data.images.backdrop_sizes,
+          posterSizes: response.data.images.poster_sizes
+        }
+      })
+    }).catch(err => console.error(err));
   }
 
   popularMovieSearch = (page = 1) => {
@@ -32,7 +60,7 @@ class App extends React.Component {
       url: '/moviepopular',
       params: {
         page: page,
-        applicationOrigin: "initial page loading",
+        applicationOrigin: "client popularMovieSearch",
         searchTerm: '',
       }
     }
@@ -85,10 +113,9 @@ class App extends React.Component {
       }
     };
     axios(movieDetailConfig).then(response => {
-      // console.log("Inside the axios promise...", response.data);
+      console.log("onMovieDetailClick axios response...", response.data);
       this.setState({ 
         movieDetail: response.data,
-        movieId: '',
       });
     }).catch(err => console.error(err));
   }
@@ -137,7 +164,7 @@ class App extends React.Component {
               listTerm={this.state.searchTerm}
               chooseAnotherPage={this.chooseAnotherPage}
             />
-            <MovieDetails path="details/:movieId" detailData={this.state.movieDetail} />
+            <MovieDetails path="details/:movieId" detailData={this.state.movieDetail} urlForImages={this.state.leftPartOfimgUrl} />
             <AboutThisApp path="about" sitename={sitename} />
           </Router>
       </div>

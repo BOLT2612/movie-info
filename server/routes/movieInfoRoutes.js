@@ -1,5 +1,5 @@
 const express = require('express');
-const { popular, movieSearch, movieDetail } = require('../services/movieInfoService');
+const { popular, movieSearch, movieDetail, imagesConfiguration } = require('../services/movieInfoService');
 
 const router = express.Router();
 
@@ -30,6 +30,17 @@ router.get('/moviedetail', async (req, res) => {
   const retObj = await movieDetail(req.query.movieId);
   res.send(retObj);
 })
+
+router.get('/imagesconfig', async (req, res) => {
+  if (DEBUG) console.log('/imagesconfig', req.query );
+  const retObj = await imagesConfiguration();
+  if (DEBUG) console.log('imagesConfiguration return this retObj', retObj );
+
+  res.send(retObj);
+})
+
+
+
 
 router.get('/test',(req, res) => {
   console.log('** test hit **');

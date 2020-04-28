@@ -1,9 +1,8 @@
 import React from 'react';
-import { navigate } from '@reach/router';
+import MoviePoster from './MoviePoster';
 
 const MovieDetails = (props) => {
   const detailData = props.detailData
-  // console.log("detailData >>>>>>>>>>", detailData);
 
   let tagline = '';
   if (detailData.tagline && detailData.tagline.length > 0) {
@@ -24,6 +23,7 @@ const MovieDetails = (props) => {
       <div class="ui segment">
         <h1 class="ui teal center aligned header">{detailData.title}</h1>
         <h4 class="ui center aligned header">{tagline}</h4>
+        <MoviePoster posterPath={detailData.poster_path} urlForImages={props.urlForImages} />
         <p>{detailData.overview}</p>
         <h5 class="ui left floated header">Runtime: </h5><p>{detailData.runtime} minutes</p>
         <h5 class="ui left floated header">Popularity: </h5><p>{detailData.popularity}</p>
