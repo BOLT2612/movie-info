@@ -14,11 +14,13 @@ const popular = async (page) => {
         page: page
       }
     });
+    console.log(dataPopular.data);
     const condensedArray = dataPopular.data.results.map(x => ( 
       {
         title: x.title, 
         id: x.id, 
-        poster_path:x.poster_path 
+        poster_path: x.poster_path,
+        backdrop_path: x.backdrop_path
       }
     ));
     const retObj = {
@@ -27,6 +29,7 @@ const popular = async (page) => {
       total_results: dataPopular.data.total_results,
       results: condensedArray
     }
+    if (DEBUG) console.log(retObj);
     return retObj;
   } catch (err) {
     console.error(err);
