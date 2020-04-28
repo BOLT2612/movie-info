@@ -155,7 +155,6 @@ class App extends React.Component {
       <div className="ui container" style={{ marginTop: '10px'}}>
         <WebsiteHeading sitename={sitename} />
         <NavHeader />
-        <SearchBar onSubmit={this.onMovieSearchSubmit} popularSearch={this.popularMovieSearch} />
           <Router>
             <MovieList  
               path="/" 
@@ -163,6 +162,8 @@ class App extends React.Component {
               movies={this.state.movies} 
               listTerm={this.state.searchTerm}
               chooseAnotherPage={this.chooseAnotherPage}
+              onMovieSearchSubmit={this.onMovieSearchSubmit}
+              popularMovieSearch={this.popularMovieSearch}
             />
             <MovieDetails path="details/:movieId" detailData={this.state.movieDetail} urlForImages={this.state.leftPartOfimgUrl} />
             <AboutThisApp path="about" sitename={sitename} />

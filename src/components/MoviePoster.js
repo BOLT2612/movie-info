@@ -10,7 +10,6 @@ const MoviePoster = (props) => {
   } else {
     return <div></div>
   }
-  
 }
 
 export default MoviePoster;

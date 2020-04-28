@@ -89,7 +89,7 @@ const movieDetail = async (movieId) => {
       })
       ]
     );
-    if (DEBUG) { 
+    if (DEBUG) {
       console.log(' ************** detailsRes1 ************** ',detailsRes1.status, detailsRes1.data);
       console.log(' ************** detailsRes2 ************** ',detailsRes2.status, detailsRes2.data);
     }
@@ -106,13 +106,13 @@ const movieDetail = async (movieId) => {
 const imagesConfiguration = async () => {
   try {
     const imagesConfigRes = await axios.get(
-      'https://api.themoviedb.org/3/configuration', 
+      'https://api.themoviedb.org/3/configuration',
       {
         params: {
           api_key: TMDB_API_KEY,
         }
       }
-    );      
+    );
     const retObj = imagesConfigRes;
     if (DEBUG) {
       console.log("status:",imagesConfigRes.status );

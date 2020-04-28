@@ -4,7 +4,7 @@ const { popular, movieSearch, movieDetail, imagesConfiguration } = require('../s
 const router = express.Router();
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const DEBUG = process.env.PORT ? false : true ;
+const DEBUG = process.env.MOVIE_INFO_DEBUG ;
 
 if (!TMDB_API_KEY) console.log('TMDB_API_KEY =', TMDB_API_KEY)
 

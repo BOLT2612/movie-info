@@ -1,5 +1,6 @@
 import React from 'react';
 import MovieListItem from './MovieListItem';
+import SearchBar from './SearchBar';
 import PaginationFooter from './PaginationFooter';
 
 const MovieList = (props) => {
@@ -22,7 +23,8 @@ const MovieList = (props) => {
     )
 
     return (
-      <div>
+      <div>        
+        <SearchBar onSubmit={props.onMovieSearchSubmit} popularSearch={props.popularMovieSearch} />
         <div class="ui segment">
           <h2 class="ui center aligned header">{searchResultsHeading}</h2>
           <div class="ui list" >{visibleMovieList}</div>
