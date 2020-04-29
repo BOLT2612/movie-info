@@ -1,9 +1,6 @@
 const axios = require('axios');
 
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-const DEBUG = process.env.MOVIE_INFO_DEBUG;
-
-if (DEBUG) console.log('DEBUG mode is', DEBUG);
 
 const popular = async (page) => {
   try {
@@ -14,7 +11,6 @@ const popular = async (page) => {
         page: page
       }
     });
-    // if (DEBUG) console.log(dataPopular.data);
     const condensedArray = dataPopular.data.results.map(x => ( 
       {
         title: x.title, 
@@ -29,7 +25,6 @@ const popular = async (page) => {
       total_results: dataPopular.data.total_results,
       results: condensedArray
     }
-    // if (DEBUG) console.log(retObj);
     return retObj;
   } catch (err) {
     console.error(err);
@@ -63,7 +58,6 @@ const movieSearch = async (page, searchTerm) => {
       total_results: dataSearch.data.total_results,
       results: condensedArray
     }
-    if (DEBUG) console.log(retObj);
     return(retObj);
   } catch {
     err => console.error(err);
@@ -89,10 +83,6 @@ const movieDetail = async (movieId) => {
       })
       ]
     );
-    if (DEBUG) {
-      console.log(' ************** detailsRes1 ************** ',detailsRes1.status, detailsRes1.data);
-      console.log(' ************** detailsRes2 ************** ',detailsRes2.status, detailsRes2.data);
-    }
     const movieDetailData = detailsRes1.data;
     movieDetailData.cast = detailsRes2.data.cast;
     movieDetailData.crew = detailsRes2.data.crew;
@@ -114,10 +104,6 @@ const imagesConfiguration = async () => {
       }
     );
     const retObj = imagesConfigRes;
-    if (DEBUG) {
-      console.log("status:",imagesConfigRes.status );
-      console.log("data:", imagesConfigRes.data)
-    }
     return(retObj.data);
   } catch {
     err => {
