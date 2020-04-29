@@ -104,7 +104,6 @@ class App extends React.Component {
       }
     };
     axios(movieDetailConfig).then(response => {
-      console.log("onMovieDetailClick axios response...", response.data);
       this.setState({ 
         movieDetail: response.data,
       });
