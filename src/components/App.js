@@ -3,13 +3,12 @@ import ReactDOM from "react-dom";
 import { Router } from '@reach/router';
 import axios from 'axios';
 import NavHeader from "./NavHeader";
-import SearchBar from "./SearchBar";
 import MovieList from "./MovieList";
 import WebsiteHeading from "./WebsiteHeading";
 import MovieDetails from "./MovieDetails";
 import AboutThisApp from "./AboutThisApp";
 
-const sitename = `Greg's Movie Info`;
+const sitename = `Movie Info`;
 
 class App extends React.Component {
   state = { 
