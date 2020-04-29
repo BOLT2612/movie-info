@@ -36,7 +36,7 @@ class App extends React.Component {
       method: 'get',
       url: '/imagesconfig',
       params: {
-        applicationOrigin: "initial page loading",
+        applicationOrigin: "Get Image Configuration",
       }
     }
     axios(imagesConfig).then(response => {
