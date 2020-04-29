@@ -22,10 +22,8 @@ class App extends React.Component {
   };
 
   componentDidMount = () => {
-    console.log('mounting app component');
     this.popularMovieSearch();
     this.getImagesConfig();
-    // setInterval(this.getImagesConfig, 10000);
     setInterval(this.getImagesConfig, 24*60*60000);
   }
 
@@ -35,13 +33,10 @@ class App extends React.Component {
       method: 'get',
       url: '/imagesconfig',
       params: {
-        applicationOrigin: "initial page loading",
+        applicationOrigin: "Get Image Configuration"
       }
     }
     axios(imagesConfig).then(response => {
-      console.log("^^^^^^^^^^^^^^  getImagesConfig() response  ^^^^^^^^^^^^^^^^^");
-      console.log(response.data.images);
-      console.log(response.data.images.secure_base_url + response.data.images.poster_sizes[3])
       this.setState({
         leftPartOfimgUrl: response.data.images.secure_base_url + response.data.images.poster_sizes[3],
         imgUrlPieces: {
@@ -65,7 +60,6 @@ class App extends React.Component {
       }
     }
     axios(landingPageConfig).then(response => {
-      // console.log(response);
       this.setState({
         movies: response.data,
         searchTerm: '',
@@ -76,7 +70,6 @@ class App extends React.Component {
   }
 
   onMovieSearchSubmit = (term, page = 1) => {
-    // console.log('onMovieSearchSubmit: term =', term);
     this.setState({
       movies: '',
     });
@@ -90,7 +83,6 @@ class App extends React.Component {
       }
     }
     axios(searchConfig).then(response => {
-      // console.log(response);
       this.setState({
         movies: response.data,
         searchTerm: term,
@@ -103,7 +95,6 @@ class App extends React.Component {
     this.setState({
       movieDetail: {}
     }) 
-    // console.log(event.target, event.target.idx);
     const movieDetailConfig = {
       method: 'get',
       url: '/moviedetail/',
@@ -121,11 +112,8 @@ class App extends React.Component {
   }
 
   chooseAnotherPage = (e) => {
-    // console.log("Pagination click:",e.target.textContent);
-    // textContent holds the number value clicked on
     let newPage;
     if (e.target.textContent.search(/[\D]/) === -1) {
-      // check that pagination click was on a number
       newPage = Number.parseInt(e.target.textContent);
     } else if (e.target.textContent.charCodeAt(0) === 171) {
       newPage = 1;
@@ -139,13 +127,9 @@ class App extends React.Component {
       return;
     }
 
-    // console.log("newPage =", newPage);
-
     if (this.state.searchTerm) {
-      // console.log("Movie Search Query:", this.state.searchTerm, "page =",newPage);
       this.onMovieSearchSubmit(this.state.searchTerm, newPage);
     } else {
-      // console.log("Popular Movie Query:", this.state.searchTerm, "page =",newPage);
       this.popularMovieSearch(newPage);
     }
   }

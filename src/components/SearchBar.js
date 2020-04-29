@@ -1,13 +1,11 @@
 import React from 'react';
 import { navigate } from '@reach/router';
 
-
 class SearchBar extends React.Component {
   state = { term: '' }
 
   onFormSubmit = (event) => {
     event.preventDefault();
-    // console.log(event.target.value);
     if (this.state.term) {
       this.props.onSubmit(this.state.term);
     } else {

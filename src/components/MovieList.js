@@ -4,7 +4,6 @@ import SearchBar from './SearchBar';
 import PaginationFooter from './PaginationFooter';
 
 const MovieList = (props) => {
-  // console.log("MovieList: props.movies.page", props.movies.page, "props.movies.total_pages",props.movies.total_pages)
   if (props.movies.results) {
 
     let searchResultsHeading = '';
@@ -13,9 +12,7 @@ const MovieList = (props) => {
     } else {
       searchResultsHeading = 'Popular Movies';
     }
-    // const visibleMovieList = props.movies.results.map(movie => {
-    //   return <div class="item">{movie.title}</div>
-    // })
+
     const visibleMovieList = props.movies.results.map((movie, idx) => 
         <div class="item" key={movie.id}>
           <MovieListItem title={movie.title} id={movie.id} onMovieDetailClick={props.onMovieDetailClick} />
