@@ -16,7 +16,7 @@ class App extends React.Component {
     movies: { },
     movieId: '',
     currentPage: 0,
-    movieDetail: {},
+    movieDetail: { noDetails: true },
     searchTerm: '',
     leftPartOfimgUrl: '',
     imgUrlPieces: {}
@@ -24,9 +24,10 @@ class App extends React.Component {
 
   componentDidMount = () => {
     console.log('mounting app component');
-    this.popularMovieSearch();
+
     this.getImagesConfig();
     // setInterval(this.getImagesConfig, 10000);
+    this.popularMovieSearch();
     setInterval(this.getImagesConfig, 24*60*60000);
   }
 
@@ -102,7 +103,7 @@ class App extends React.Component {
 
   onMovieDetailClick = (incomingMovieId) => {
     this.setState({
-      movieDetail: {}
+      movieDetail: { waiting: true }
     }) 
     // console.log(event.target, event.target.idx);
     const movieDetailConfig = {
@@ -165,8 +166,13 @@ class App extends React.Component {
               chooseAnotherPage={this.chooseAnotherPage}
               onMovieSearchSubmit={this.onMovieSearchSubmit}
               popularMovieSearch={this.popularMovieSearch}
+              imgUrlPieces={this.state.imgUrlPieces} 
             />
-            <MovieDetails path="details/:movieId" detailData={this.state.movieDetail} urlForImages={this.state.leftPartOfimgUrl} />
+            <MovieDetails 
+              path="details/:movieId" 
+              detailData={this.state.movieDetail} 
+              imgUrlPieces={this.state.imgUrlPieces} 
+            />
             <AboutThisApp path="about" sitename={sitename} />
           </Router>
       </div>
