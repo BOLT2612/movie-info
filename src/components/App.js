@@ -157,24 +157,24 @@ class App extends React.Component {
       <div className="ui container" style={{ marginTop: '10px'}}>
         <WebsiteHeading sitename={sitename} />
         <NavHeader />
-          <Router>
-            <MovieList  
-              path="/" 
-              onMovieDetailClick={this.onMovieDetailClick} 
-              movies={this.state.movies} 
-              listTerm={this.state.searchTerm}
-              chooseAnotherPage={this.chooseAnotherPage}
-              onMovieSearchSubmit={this.onMovieSearchSubmit}
-              popularMovieSearch={this.popularMovieSearch}
-              imgUrlPieces={this.state.imgUrlPieces} 
-            />
-            <MovieDetails 
-              path="details/:movieId" 
-              detailData={this.state.movieDetail} 
-              imgUrlPieces={this.state.imgUrlPieces} 
-            />
-            <AboutThisApp path="about" sitename={sitename} />
-          </Router>
+        <Router primary={false}>
+          <MovieList
+            path="/"
+            onMovieDetailClick={this.onMovieDetailClick}
+            movies={this.state.movies}
+            listTerm={this.state.searchTerm}
+            chooseAnotherPage={this.chooseAnotherPage}
+            onMovieSearchSubmit={this.onMovieSearchSubmit}
+            popularMovieSearch={this.popularMovieSearch}
+            imgUrlPieces={this.state.imgUrlPieces}
+          />
+          <MovieDetails
+            path="details/:movieId"
+            detailData={this.state.movieDetail}
+            imgUrlPieces={this.state.imgUrlPieces}
+          />
+          <AboutThisApp path="about" sitename={sitename} />
+        </Router>
       </div>
     );
   }
