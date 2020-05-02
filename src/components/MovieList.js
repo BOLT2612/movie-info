@@ -4,12 +4,8 @@ import SearchBar from './SearchBar';
 import PaginationFooter from './PaginationFooter';
 
 const MovieList = (props) => {
-<<<<<<< HEAD
-  if (props.movies.results) {
-=======
   if (props.movies.results && props.imgUrlPieces.posterSizes) {
-    console.log("MovieList: props.imgUrlPieces", props.imgUrlPieces, "props.movies", props.movies)
->>>>>>> master
+    // console.log("MovieList: props.imgUrlPieces", props.imgUrlPieces, "props.movies", props.movies)
 
     let searchResultsHeading = '';
     if (props.listTerm && props.listTerm.length > 0) {

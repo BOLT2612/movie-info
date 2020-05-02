@@ -11,7 +11,7 @@ const MovieDetails = (props) => {
   }
 
   if (props.detailData.noDetails) {
-    console.log("details error")
+    console.log("user error: no movie selected")
     return (
       <div>
         <h2 class="userMessage large">Are you forgetting something?</h2>

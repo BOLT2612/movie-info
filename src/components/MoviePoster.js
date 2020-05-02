@@ -2,9 +2,9 @@ import React from 'react';
 
 const MoviePoster = (props) => {
   if (props.posterPath) {
-    console.log("MoviePoster: props", props)
+    // console.log("MoviePoster: props", props)
     const iup = props.imgUrlPieces;
-    console.log(iup);
+    // console.log(iup);
     return (
       <div>
         <img 
