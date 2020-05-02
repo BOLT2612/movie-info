@@ -14,8 +14,8 @@ const MovieDetails = (props) => {
     console.log("details error")
     return (
       <div>
-        <h1 class="detailMessage large">Are you forgetting something?</h1>
-        <h4 class="detailMessage">No Details unless you select a movie</h4>
+        <h2 class="userMessage large">Are you forgetting something?</h2>
+        <h4 class="userMessage">No Details unless you select a movie</h4>
         <button onClick={() => navigate(`/`)}>Back to Movie List</button>
         <p></p>
       </div>
