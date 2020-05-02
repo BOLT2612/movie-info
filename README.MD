@@ -9,7 +9,7 @@ This setup assumes you already have *node.js* and *npm* installed on your system
 1. Get version 3 api_key from [developers.themoviedb.org/3/getting-started/introduction](https://developers.themoviedb.org/3/getting-started/introduction)
 1. From project root directory, go to server directory: <span style="color:blue">*cd ./server*</span>  
 1. Enter the following: <span style="color:blue">*export TMDB_API_KEY={your version 3 api_key from themoviedb.org}*</span>
-1. Go back to project root directory and enter: <span style="color:blue">*export MOVIE_INFO_PORT={your desired port number}*</span>
+1. Go back to project root directory and enter: <span style="color:blue">*export PORT={your desired port number}*</span>
 1. Start the server by entering the following: <span style="color:blue">*npm run server-dev*</span>
 1. Open a new tab in your browser with the following URI: <span style="color:blue">`http://localhost:{your desired port number}/`</span>
 1. Explore different movies and movie title searches.   
@@ -43,12 +43,12 @@ For example: if your `api_key='1234567890abcdefghij123456789012'`, you would do 
 
 
 Now the server can access and utilize the api at https://api.themoviedb.org  
-### Next: Set the environment variable MOVIE_INFO_PORT to your desired port number.
+### Next: Set the environment variable PORT to your desired port number.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">**$ export MOVIE_INFO_PORT={your desired port number}**</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">**$ export PORT={your desired port number}**</span>  
   
 Example: If the desired port to run your server on is 3333, enter the following in ./server directory  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">**$ export MOVIE_INFO_PORT="3333"**</span>  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">**$ export PORT="3333"**</span>  
 ## Run the server  
 In the root directory of the project, enter the following:  
   
@@ -58,8 +58,8 @@ Open a new tab in your browser with the following URI:
   
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">**http://localhost:{your desired port number}/**</span>  
 
-In this above case, {your desired port number} should be replaced with the value assigned to MOVIE_INFO_PORT  
-So, if {MOVIE_INFO_PORT}= 3333, you should set your browser address to  
+In this above case, {your desired port number} should be replaced with the value assigned to PORT  
+So, if {PORT}= 3333, you should set your browser address to  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:blue">**http://localhost:3333/**</span>  
 
 ## And finally...

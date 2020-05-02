@@ -4,7 +4,12 @@ import SearchBar from './SearchBar';
 import PaginationFooter from './PaginationFooter';
 
 const MovieList = (props) => {
+<<<<<<< HEAD
   if (props.movies.results) {
+=======
+  if (props.movies.results && props.imgUrlPieces.posterSizes) {
+    console.log("MovieList: props.imgUrlPieces", props.imgUrlPieces, "props.movies", props.movies)
+>>>>>>> master
 
     let searchResultsHeading = '';
     if (props.listTerm && props.listTerm.length > 0) {
@@ -15,7 +20,13 @@ const MovieList = (props) => {
 
     const visibleMovieList = props.movies.results.map((movie, idx) => 
         <div class="item" key={movie.id}>
-          <MovieListItem title={movie.title} id={movie.id} onMovieDetailClick={props.onMovieDetailClick} />
+          <MovieListItem 
+            title={movie.title} 
+            id={movie.id} 
+            onMovieDetailClick={props.onMovieDetailClick} 
+            imgUrlPieces={props.imgUrlPieces}
+            poster_path={movie.poster_path}
+          />
         </div>
     )
 

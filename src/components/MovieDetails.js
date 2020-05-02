@@ -1,4 +1,5 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 import MoviePoster from './MoviePoster';
 
 const MovieDetails = (props) => {
@@ -9,7 +10,18 @@ const MovieDetails = (props) => {
     tagline = '"' + detailData.tagline + '"';
   }
 
-  if (!props.detailData.production_companies) {
+  if (props.detailData.noDetails) {
+    console.log("details error")
+    return (
+      <div>
+        <h2 class="userMessage large">Are you forgetting something?</h2>
+        <h4 class="userMessage">No Details unless you select a movie</h4>
+        <button onClick={() => navigate(`/`)}>Back to Movie List</button>
+        <p></p>
+      </div>
+    );
+  } 
+  else if (!props.detailData.production_companies) {
     return (
       <div class="ui segment">
         <div class="ui active inverted dimmer">
@@ -23,7 +35,11 @@ const MovieDetails = (props) => {
       <div class="ui segment">
         <h1 class="ui teal center aligned header">{detailData.title}</h1>
         <h4 class="ui center aligned header">{tagline}</h4>
-        <MoviePoster posterPath={detailData.poster_path} urlForImages={props.urlForImages} />
+        <MoviePoster 
+         posterPath={detailData.poster_path} 
+         imgUrlPieces={props.imgUrlPieces} 
+         posterSize={3}
+        />
         <p>{detailData.overview}</p>
         <h5 class="ui left floated header">Runtime: </h5><p>{detailData.runtime} minutes</p>
         <h5 class="ui left floated header">Popularity: </h5><p>{detailData.popularity}</p>

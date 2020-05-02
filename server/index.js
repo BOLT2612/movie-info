@@ -6,7 +6,7 @@ const app = express();
 app.use(express.static(path.join(__dirname,'../dist')));
 app.use(router);
 
-const port = process.env.MOVIE_INFO_PORT || 3333;
+const port = process.env.PORT;
 
 app.listen(port, () => {
   time = new Date().toLocaleTimeString()

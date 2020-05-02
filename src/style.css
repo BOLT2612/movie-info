@@ -1,5 +1,9 @@
-.center-aligned {
-  margin: auto;
+.userMessage {
+  font-size: medium;
+}
+
+.userMessage {
+  font-size: larger;
 }
 
 .lds-roller {

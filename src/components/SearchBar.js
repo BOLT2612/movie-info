@@ -26,7 +26,6 @@ class SearchBar extends React.Component {
               value={this.state.term} 
               onChange={(e) => this.setState({ term: e.target.value })} 
               placeholder="Enter a title...or part of a title.  Blank search returns popular movies" 
-              autofocus="true" 
             />
           </div>
         </form>

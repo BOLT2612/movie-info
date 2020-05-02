@@ -1,5 +1,7 @@
 import React from 'react';
 import { navigate } from '@reach/router';
+import MoviePoster from './MoviePoster';
+
 
 class MovieListItem extends React.Component {
   constructor(props) {
@@ -17,7 +19,12 @@ class MovieListItem extends React.Component {
   render () {
     return (
       <div class="item" key={this.movieId} movieid={this.movieId} onClick={this.movieListItemClick}>
-        {this.title}
+        <MoviePoster 
+          posterPath={this.props.poster_path} 
+          imgUrlPieces={this.props.imgUrlPieces} 
+          posterSize={0}
+        />
+        {this.title} 
       </div>
     ) 
   }

@@ -15,15 +15,18 @@ class App extends React.Component {
     movies: { },
     movieId: '',
     currentPage: 0,
-    movieDetail: {},
+    movieDetail: { noDetails: true },
     searchTerm: '',
     leftPartOfimgUrl: '',
     imgUrlPieces: {}
   };
 
   componentDidMount = () => {
-    this.popularMovieSearch();
+    console.log('mounting app component');
+
     this.getImagesConfig();
+    // setInterval(this.getImagesConfig, 10000);
+    this.popularMovieSearch();
     setInterval(this.getImagesConfig, 24*60*60000);
   }
 
@@ -33,7 +36,7 @@ class App extends React.Component {
       method: 'get',
       url: '/imagesconfig',
       params: {
-        applicationOrigin: "Get Image Configuration"
+        applicationOrigin: "Get Image Configuration",
       }
     }
     axios(imagesConfig).then(response => {
@@ -93,7 +96,7 @@ class App extends React.Component {
 
   onMovieDetailClick = (incomingMovieId) => {
     this.setState({
-      movieDetail: {}
+      movieDetail: { waiting: true }
     }) 
     const movieDetailConfig = {
       method: 'get',
@@ -138,19 +141,24 @@ class App extends React.Component {
       <div className="ui container" style={{ marginTop: '10px'}}>
         <WebsiteHeading sitename={sitename} />
         <NavHeader />
-          <Router>
-            <MovieList  
-              path="/" 
-              onMovieDetailClick={this.onMovieDetailClick} 
-              movies={this.state.movies} 
-              listTerm={this.state.searchTerm}
-              chooseAnotherPage={this.chooseAnotherPage}
-              onMovieSearchSubmit={this.onMovieSearchSubmit}
-              popularMovieSearch={this.popularMovieSearch}
-            />
-            <MovieDetails path="details/:movieId" detailData={this.state.movieDetail} urlForImages={this.state.leftPartOfimgUrl} />
-            <AboutThisApp path="about" sitename={sitename} />
-          </Router>
+        <Router primary={false}>
+          <MovieList
+            path="/"
+            onMovieDetailClick={this.onMovieDetailClick}
+            movies={this.state.movies}
+            listTerm={this.state.searchTerm}
+            chooseAnotherPage={this.chooseAnotherPage}
+            onMovieSearchSubmit={this.onMovieSearchSubmit}
+            popularMovieSearch={this.popularMovieSearch}
+            imgUrlPieces={this.state.imgUrlPieces}
+          />
+          <MovieDetails
+            path="details/:movieId"
+            detailData={this.state.movieDetail}
+            imgUrlPieces={this.state.imgUrlPieces}
+          />
+          <AboutThisApp path="about" sitename={sitename} />
+        </Router>
       </div>
     );
   }
