@@ -8,7 +8,7 @@ import WebsiteHeading from "./WebsiteHeading";
 import MovieDetails from "./MovieDetails";
 import AboutThisApp from "./AboutThisApp";
 
-const sitename = `Movie Info`;
+const sitename = `Greg's Movie Info`;
 
 class App extends React.Component {
   state = { 
